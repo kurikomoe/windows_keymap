@@ -7,22 +7,21 @@
   h  j  k  l  ;  '
   z  x  c
   ralt
-  ;; 新增：拦截来自键盘硬件层(VIA)的虚拟键
+  ;; 补全 GMK67 缺乏的按键
   f13 f14 f15 f16
+  ;; 补全 zmk 固件缺乏的按键
+  f17 f18
+  f19 f20 f21
 )
 
 (defalias
   nav_mod (tap-hold 200 200 ralt (layer-while-held navigation))
 
-  ;; 滚轮保持不变
+  ;; 滚轮参数
   mwd (mwheel-down 50 120)
   mwu (mwheel-up   50 120)
 
-  ;; 高分屏鼠标参数调整：
-  ;; 10  : 间隔时间 (保持 100Hz 刷新率)
-  ;; 800 : 加速时间 (ms)，0.8秒内达到最快速度 (比之前更快进入高速状态)
-  ;; 2   : 最小距离 (px)，起步稍微快一点点，避免高分屏上感觉“动不了”
-  ;; 75  : 最大距离 (px)，大幅提升极速 (之前是 20)，方便跨越 4K 屏幕
+  ;; 鼠标移动参数（基于你调整后的高分屏优化版本）
   ms_up    (movemouse-accel-up    10 1000 2 60)
   ms_left  (movemouse-accel-left  10 1000 2 60)
   ms_down  (movemouse-accel-down  10 1000 2 60)
@@ -34,11 +33,20 @@
   h  j  k  l  ;  '
   z  x  c
   @nav_mod
-  ;; 修正 gmk67-s 的 bug
-  @ms_left  ;; 映射 F13 (a)
-  @ms_down  ;; 映射 F14 (s)
-  @ms_right ;; 映射 F15 (d)
-  @ms_up ;; 映射 F16 (w)
+  
+  ;; 修正 GMK67-S 硬件映射 (假设你将这些 F 键映射到了物理 WASD 区域)
+  @ms_left  ;; f13
+  @ms_down  ;; f14
+  @ms_right ;; f15
+  @ms_up    ;; f16
+  
+  ;; --- 新增：默认层下的鼠标动作映射 ---
+  @mwd      ;; f17 (wheel down)
+  @mwu      ;; f18 (wheel up)
+
+  mlft      ;; f19 (left click)
+  mmid      ;; f20 (middle click)
+  mrgt      ;; f21 (right click)
 )
 
 (deflayer navigation
@@ -46,5 +54,9 @@
   left    down      up        right      home  end
   mlft    mmid      mrgt
   _
+  
+  ;; 导航层下建议保持这些功能可用，或设为 _ (透明)
   f13 f14 f15 f16
+  f17 f18
+  f19 f20 f21
 )
