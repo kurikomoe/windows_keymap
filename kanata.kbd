@@ -6,7 +6,10 @@
   w  a  s  d  f  v
   h  j  k  l  ;  '
   z  x  c
+  esc q
+
   ralt
+
   ;; 补全 GMK67 缺乏的按键
   f13 f14 f15 f16
   ;; 补全 zmk 固件缺乏的按键
@@ -32,6 +35,9 @@
   w  a  s  d  f  v
   h  j  k  l  ;  '
   z  x  c
+
+  esc q
+
   @nav_mod
   
   ;; 修正 GMK67-S 硬件映射 (假设你将这些 F 键映射到了物理 WASD 区域)
@@ -53,6 +59,9 @@
   @ms_up  @ms_left  @ms_down  @ms_right  @mwd  @mwu
   left    down      up        right      home  end
   mlft    mmid      mrgt
+
+  S-grv grv
+
   _
   
   ;; 导航层下建议保持这些功能可用，或设为 _ (透明)
