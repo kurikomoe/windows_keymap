@@ -1,5 +1,7 @@
 (defcfg
-  process-unmapped-keys yes
+  ;; You already list all keys needed by your nav layer in defsrc.
+  ;; On Windows, avoid intercepting all unmapped keys because ralt/AltGr is fragile.
+  process-unmapped-keys no
 )
 
 (defsrc
@@ -14,19 +16,25 @@
 
   ;; 补全 GMK67 缺乏的按键
   f13 f14 f15 f16
+
   ;; 补全 zmk 固件缺乏的按键
   f17 f18
   f19 f20 f21
 )
 
 (defalias
-  nav_mod (tap-hold 200 200 ralt (layer-while-held navigation))
+  ;; Do NOT emit ralt on tap.
+  ;; XX = no-op. This makes ralt a pure navigation-layer key.
+  ;;
+  ;; tap-hold-press makes the layer activate early when another key is pressed,
+  ;; which feels better for navigation chords like ralt+h/j/k/l.
+  nav_mod (tap-hold-press 200 200 XX (layer-while-held navigation))
 
   ;; 滚轮参数
   mwd (mwheel-down 50 120)
   mwu (mwheel-up   50 120)
 
-  ;; 鼠标移动参数（基于你调整后的高分屏优化版本）
+  ;; 鼠标移动参数
   ms_up    (movemouse-accel-up    10 1000 2 60)
   ms_left  (movemouse-accel-left  10 1000 2 60)
   ms_down  (movemouse-accel-down  10 1000 2 60)
@@ -42,20 +50,20 @@
   m , .
 
   @nav_mod
-  
-  ;; 修正 GMK67-S 硬件映射 (假设你将这些 F 键映射到了物理 WASD 区域)
-  @ms_left  ;; f13
-  @ms_down  ;; f14
-  @ms_right ;; f15
-  @ms_up    ;; f16
-  
-  ;; --- 新增：默认层下的鼠标动作映射 ---
-  @mwd      ;; f17 (wheel down)
-  @mwu      ;; f18 (wheel up)
 
-  mlft      ;; f19 (left click)
-  mmid      ;; f20 (middle click)
-  mrgt      ;; f21 (right click)
+  ;; 修正 GMK67-S 硬件映射
+  @ms_left   ;; f13
+  @ms_down   ;; f14
+  @ms_right  ;; f15
+  @ms_up     ;; f16
+
+  ;; 默认层下的鼠标动作映射
+  @mwd       ;; f17
+  @mwu       ;; f18
+
+  mlft       ;; f19
+  mmid       ;; f20
+  mrgt       ;; f21
 )
 
 (deflayer navigation
@@ -67,8 +75,8 @@
   mute vold volu
 
   _
-  
-  ;; 导航层下建议保持这些功能可用，或设为 _ (透明)
+
+  ;; 导航层下保留这些 F 键的原始输出
   f13 f14 f15 f16
   f17 f18
   f19 f20 f21
